@@ -1,7 +1,8 @@
-use std::io;
+use std::{io, thread};
 use rand::Rng;
 use std::cmp::Ordering;
 use std::str::FromStr;
+use std::time::Duration;
 
 fn main() {
     // guess_number();
@@ -81,4 +82,28 @@ fn gcd(mut a: u64, mut b: u64) -> u64 {
 #[test]
 fn test_gcd() {
     assert_eq!(gcd(14, 15), 1);
+}
+
+fn ts_closure() {
+    let generic_greeting = String::from("Good day,");
+    let print_greeting = |name| println!("{} {}!", generic_greeting, name);
+    let person = String::from("Crab");
+    print_greeting(person);
+    // println!("Can I use generic greeting? {}", generic_greeting);
+    // println!("Can I use person {}", person);
+}
+
+fn th_thread() {
+    let t1 = thread::spawn(|| {
+        for i in 1..10 {
+            println!("Greeting {} from other thread!", i);
+            thread::sleep(Duration::from_millis(1));
+        }
+    });
+
+    for i in 1..5 {
+        println!("Greeting {} from main thread!", i);
+        thread::sleep(Duration::from_millis(1));
+    }
+    t1.join().unwrap();
 }
