@@ -1,6 +1,7 @@
 mod gcd;
 mod my_collect;
 mod my_web;
+mod string_exam;
 
 use std::{io, thread};
 use rand::Rng;
